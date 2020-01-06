@@ -1,6 +1,5 @@
 import 'dart:math';
-
-import 'package:calc/newcard.dart';
+import 'package:calc/number_row.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -128,8 +127,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       try {
         double divNumber = numOne / numTwo;
-        calculatedValue = divNumber.round();
-        resultValue = calculatedValue.toString();
+        resultValue = divNumber.toString();
       } catch (e) {
         resultValue = "Can't divide by 0 ";
       }
@@ -140,8 +138,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       try {
         double percentNumber = numOne / 100 * numTwo;
-        calculatedValue = percentNumber.round();
-        resultValue = calculatedValue.toString();
+        // calculatedValue = percentNumber.round();
+        resultValue = percentNumber.toString();
       } catch (e) {
         resultValue = "Can't divide by 0 ";
       }
@@ -253,185 +251,115 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: Column(
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: 'C',
-                                ontap: () => clear(),
-                                textColor: Colors.red,
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '<-',
-                                ontap: () => backspace(),
-                                textColor: Colors.orange,
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '%',
-                                ontap: () {
-                                  setState(() {
-                                    assignSign('%');
-                                    operaterSign = 5;
-                                  });
-                                },
-                                textColor: Color(0xff44aaee),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '^',
-                                ontap: () {
-                                  setState(() {
-                                    assignSign('^');
-                                    operaterSign = 6;
-                                  });
-                                },
-                                textColor: Color(0xff44aaee),
-                              ),
-                            ),
-                          ],
+                        Expanded(
+                          child: NumberRow(
+                            symbol1: 'C',
+                            symbol2: '<-',
+                            symbol3: '%',
+                            symbol4: '^',
+                            textColor1: Colors.red,
+                            textColor2: Colors.orange,
+                            textColor3: Color(0xff44aaee),
+                            textColor4: Color(0xff44aaee),
+                            ontap1: () => clear(),
+                            ontap2: () => backspace(),
+                            ontap3: () {
+                              setState(() {
+                                assignSign('%');
+                                operaterSign = 5;
+                              });
+                            },
+                            ontap4: () {
+                              setState(() {
+                                assignSign('^');
+                                operaterSign = 6;
+                              });
+                            },
+                          ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '7',
-                                ontap: () => assignNumber(7),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '8',
-                                ontap: () => assignNumber(8),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '9',
-                                ontap: () => assignNumber(9),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '÷',
-                                ontap: () {
-                                  setState(() {
-                                    assignSign('÷');
-                                    operaterSign = 4;
-                                  });
-                                },
-                                textColor: Color(0xff44aaee),
-                              ),
-                            ),
-                          ],
+                        Expanded(
+                          child: NumberRow(
+                            symbol1: '7',
+                            symbol2: '8',
+                            symbol3: '9',
+                            symbol4: '÷',
+                            textColor1: Colors.white,
+                            textColor2: Colors.white,
+                            textColor3: Colors.white,
+                            textColor4: Color(0xff44aaee),
+                            ontap1: () => assignNumber(7),
+                            ontap2: () => assignNumber(8),
+                            ontap3: () => assignNumber(9),
+                            ontap4: () {
+                              setState(() {
+                                assignSign('÷');
+                                operaterSign = 4;
+                              });
+                            },
+                          ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '4',
-                                ontap: () => assignNumber(4),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '5',
-                                ontap: () => assignNumber(5),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '6',
-                                ontap: () => assignNumber(6),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: 'x',
-                                ontap: () {
-                                  setState(() {
-                                    assignSign('x');
-                                    operaterSign = 3;
-                                  });
-                                },
-                                textColor: Color(0xff44aaee),
-                              ),
-                            ),
-                          ],
+                        Expanded(
+                          child: NumberRow(
+                            symbol1: '4',
+                            symbol2: '5',
+                            symbol3: '6',
+                            symbol4: 'x',
+                            textColor1: Colors.white,
+                            textColor2: Colors.white,
+                            textColor3: Colors.white,
+                            textColor4: Color(0xff44aaee),
+                            ontap1: () => assignNumber(4),
+                            ontap2: () => assignNumber(5),
+                            ontap3: () => assignNumber(6),
+                            ontap4: () {
+                              setState(() {
+                                assignSign('x');
+                                operaterSign = 3;
+                              });
+                            },
+                          ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '1',
-                                ontap: () => assignNumber(1),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '2',
-                                ontap: () => assignNumber(2),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '3',
-                                ontap: () => assignNumber(3),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '-',
-                                ontap: () {
-                                  setState(() {
-                                    assignSign('-');
-                                    operaterSign = 2;
-                                  });
-                                },
-                                textColor: Color(0xff44aaee),
-                              ),
-                            ),
-                          ],
+                        Expanded(
+                          child: NumberRow(
+                            symbol1: '1',
+                            symbol2: '2',
+                            symbol3: '3',
+                            symbol4: '-',
+                            textColor1: Colors.white,
+                            textColor2: Colors.white,
+                            textColor3: Colors.white,
+                            textColor4: Color(0xff44aaee),
+                            ontap1: () => assignNumber(1),
+                            ontap2: () => assignNumber(2),
+                            ontap3: () => assignNumber(3),
+                            ontap4: () {
+                              setState(() {
+                                assignSign('-');
+                                operaterSign = 2;
+                              });
+                            },
+                          ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '.',
-                                ontap: () {},
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '0',
-                                ontap: () => assignNumber(0),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '=',
-                                ontap: () => calculate(),
-                                textColor: Color(0xff44aaee),
-                              ),
-                            ),
-                            Expanded(
-                              child: NewCard(
-                                cardNumber: '+',
-                                ontap: () {
-                                  setState(() {
-                                    assignSign('+');
-                                    operaterSign = 1;
-                                  });
-                                },
-                                textColor: Color(0xff44aaee),
-                              ),
-                            ),
-                          ],
-                        )
+                        Expanded(
+                            child: NumberRow(
+                          symbol1: '.',
+                          symbol2: '0',
+                          symbol3: '=',
+                          symbol4: '+',
+                          textColor1: Colors.white,
+                          textColor2: Colors.white,
+                          textColor3: Color(0xff44aaee),
+                          textColor4: Color(0xff44aaee),
+                          ontap1: () {},
+                          ontap2: () => assignNumber(0),
+                          ontap3: () => calculate(),
+                          ontap4: () {
+                            setState(() {
+                              assignSign('+');
+                              operaterSign = 1;
+                            });
+                          },
+                        )),
                       ],
                     ),
                   ),
