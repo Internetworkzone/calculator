@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calc/newcard.dart';
 import 'package:flutter/material.dart';
 
@@ -9,80 +11,152 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<int> num1List = [];
   List<int> num2List = [];
-  String resultNumber = '0';
+  String resultValue = '0';
   int numOne;
   int numTwo;
-  int addedNumber;
-  int operate;
+  int calculatedValue;
+  int operaterSign;
   String sign;
-  String initialValue = '';
-  int firstNumb;
+  String inputValue = '';
+  List<String> inputList = [];
 
   assignNumber(int numb) {
     setState(() {
-      if (sign == null) {
-        num1List.add(numb);
-        numOne = int.parse(num1List.join());
-        initialValue = '$numOne';
-      } else if (sign != null) {
+      if (calculatedValue != null) {
+        numOne = calculatedValue;
         num2List.add(numb);
         numTwo = int.parse(num2List.join());
-        initialValue = '$numOne' + '$sign' + '$numTwo';
+        inputValue = '$numOne' + '$sign' + '$numTwo';
+      } else {
+        if (sign == null) {
+          num1List.add(numb);
+          numOne = int.parse(num1List.join());
+          inputValue = '$numOne';
+        } else if (sign != null) {
+          num2List.add(numb);
+          numTwo = int.parse(num2List.join());
+          inputValue = '$numOne' + '$sign' + '$numTwo';
+        }
       }
     });
   }
 
   assignSign(String si) {
     setState(() {
-      sign = si;
-      initialValue = '$numOne' + '$sign';
+      if (calculatedValue != null) {
+        calculate();
+        numOne = calculatedValue;
+        num2List.clear();
+        sign = si;
+        inputValue = '$numOne' + '$sign';
+        calculatedValue = null;
+      } else if (numOne != null && numTwo != null) {
+        calculate();
+        numOne = calculatedValue;
+        num2List.clear();
+        sign = si;
+        inputValue = '';
+        calculatedValue = null;
+        numTwo = null;
+      } else if (numOne == null) {
+        numOne = 0;
+        sign = null;
+      } else {
+        sign = si;
+
+        inputValue = '$numOne' + '$sign';
+      }
     });
   }
 
   calculate() {
-    if (numTwo == null) {
-      setState(() {
-        resultNumber = 'error';
-      });
-    } else {
-      if (operate == 1) {
-        addition();
-      } else if (operate == 2) {
-        subtraction();
-      } else if (operate == 3) {
-        multiplication();
+    setState(() {
+      if (numTwo == null && numOne == null) {
+        resultValue = '$numOne';
       } else {
-        division();
+        if (operaterSign == 1) {
+          addition();
+        } else if (operaterSign == 2) {
+          subtraction();
+        } else if (operaterSign == 3) {
+          multiplication();
+        } else if (operaterSign == 4) {
+          division();
+        } else if (operaterSign == 5) {
+          percentage();
+        } else if (operaterSign == 6) {
+          exponential();
+        }
       }
-    }
+    });
   }
 
   addition() {
-    setState(() {
-      addedNumber = numOne + numTwo;
-      resultNumber = addedNumber.toString();
-    });
+    try {
+      setState(() {
+        calculatedValue = numOne + numTwo;
+        resultValue = calculatedValue.toString();
+      });
+    } catch (e) {
+      resultValue = 'error';
+    }
   }
 
   subtraction() {
-    setState(() {
-      addedNumber = numOne - numTwo;
-      resultNumber = addedNumber.toString();
-    });
+    try {
+      setState(() {
+        calculatedValue = numOne - numTwo;
+        resultValue = calculatedValue.toString();
+      });
+    } catch (e) {
+      resultValue = 'error';
+    }
   }
 
   multiplication() {
-    setState(() {
-      addedNumber = numOne * numTwo;
-      resultNumber = addedNumber.toString();
-    });
+    try {
+      setState(() {
+        calculatedValue = numOne * numTwo;
+        resultValue = calculatedValue.toString();
+      });
+    } catch (e) {
+      resultValue = 'error';
+    }
   }
 
   division() {
     setState(() {
-      double divNumber = numOne / numTwo;
-      addedNumber = divNumber.round();
-      resultNumber = addedNumber.toString();
+      try {
+        double divNumber = numOne / numTwo;
+        calculatedValue = divNumber.round();
+        resultValue = calculatedValue.toString();
+      } catch (e) {
+        resultValue = "Can't divide by 0 ";
+      }
+    });
+  }
+
+  percentage() {
+    setState(() {
+      try {
+        double percentNumber = numOne / 100 * numTwo;
+        calculatedValue = percentNumber.round();
+        resultValue = calculatedValue.toString();
+      } catch (e) {
+        resultValue = "Can't divide by 0 ";
+      }
+    });
+  }
+
+  exponential() {
+    setState(() {
+      try {
+        // double expoNumber = pow(numOne, numTwo);
+        calculatedValue = pow(numOne, numTwo);
+        resultValue = calculatedValue.toString();
+      } catch (e) {
+        resultValue = "Can't divide by 0 ";
+      }
     });
   }
 
@@ -93,28 +167,28 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         if (num2List.length == 0 && sign == null && num1List.length != 0) {
           if (num1List.length == 1) {
-            num1List.clear();
-            initialValue = '';
+            inputValue = '';
+            resultValue = '';
           } else {
             num1List.removeLast();
             numOne = int.parse(num1List.join());
-            initialValue = '$numOne';
+            inputValue = '$numOne';
           }
           //
         } else if (sign != null &&
             num1List.length != 0 &&
             num2List.length == 0) {
           sign = null;
-          initialValue = '$numOne';
+          inputValue = '$numOne';
           //
         } else if (num2List != null) {
           if (num2List.length == 1) {
             num2List.clear();
-            initialValue = '$numOne' + '$sign';
+            inputValue = '$numOne' + '$sign';
           } else {
             num2List.removeLast();
             numTwo = int.parse(num2List.join());
-            initialValue = '$numOne' + '$sign' + '$numTwo';
+            inputValue = '$numOne' + '$sign' + '$numTwo';
           }
         }
       });
@@ -123,8 +197,9 @@ class _HomePageState extends State<HomePage> {
 
   clear() {
     setState(() {
-      initialValue = '';
-      resultNumber = '';
+      calculatedValue = null;
+      inputValue = '';
+      resultValue = '';
       numOne = null;
       numTwo = null;
       sign = null;
@@ -136,169 +211,234 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Container(
-              color: Colors.green,
+        backgroundColor: Color(0xff252525),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 2,
+              child: Container(
+                color: Color(0xff111111),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          inputValue,
+                          style: TextStyle(
+                            fontSize: inputValue.length > 15 ? 30 : 40,
+                            color: Color(0xff44aaee),
+                          ),
+                        ),
+                        Text(
+                          resultValue,
+                          style: TextStyle(
+                            fontSize: resultValue.length > 12 ? 35 : 50,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffffffff),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 3,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        initialValue,
-                        style: TextStyle(
-                          fontSize: initialValue.length > 15 ? 30 : 40,
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: 'C',
+                                ontap: () => clear(),
+                                textColor: Colors.red,
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '<-',
+                                ontap: () => backspace(),
+                                textColor: Colors.orange,
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '%',
+                                ontap: () {
+                                  setState(() {
+                                    assignSign('%');
+                                    operaterSign = 5;
+                                  });
+                                },
+                                textColor: Color(0xff44aaee),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '^',
+                                ontap: () {
+                                  setState(() {
+                                    assignSign('^');
+                                    operaterSign = 6;
+                                  });
+                                },
+                                textColor: Color(0xff44aaee),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Text(
-                        resultNumber,
-                        style: TextStyle(
-                          fontSize: resultNumber.length > 12 ? 35 : 50,
-                          fontWeight: FontWeight.bold,
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '7',
+                                ontap: () => assignNumber(7),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '8',
+                                ontap: () => assignNumber(8),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '9',
+                                ontap: () => assignNumber(9),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '÷',
+                                ontap: () {
+                                  setState(() {
+                                    assignSign('÷');
+                                    operaterSign = 4;
+                                  });
+                                },
+                                textColor: Color(0xff44aaee),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '4',
+                                ontap: () => assignNumber(4),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '5',
+                                ontap: () => assignNumber(5),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '6',
+                                ontap: () => assignNumber(6),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: 'x',
+                                ontap: () {
+                                  setState(() {
+                                    assignSign('x');
+                                    operaterSign = 3;
+                                  });
+                                },
+                                textColor: Color(0xff44aaee),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '1',
+                                ontap: () => assignNumber(1),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '2',
+                                ontap: () => assignNumber(2),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '3',
+                                ontap: () => assignNumber(3),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '-',
+                                ontap: () {
+                                  setState(() {
+                                    assignSign('-');
+                                    operaterSign = 2;
+                                  });
+                                },
+                                textColor: Color(0xff44aaee),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '.',
+                                ontap: () {},
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '0',
+                                ontap: () => assignNumber(0),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '=',
+                                ontap: () => calculate(),
+                                textColor: Color(0xff44aaee),
+                              ),
+                            ),
+                            Expanded(
+                              child: NewCard(
+                                cardNumber: '+',
+                                ontap: () {
+                                  setState(() {
+                                    assignSign('+');
+                                    operaterSign = 1;
+                                  });
+                                },
+                                textColor: Color(0xff44aaee),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              color: Colors.yellow,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          NewCard(
-                            cardNumber: '7',
-                            ontap: () => assignNumber(7),
-                          ),
-                          NewCard(
-                            cardNumber: '8',
-                            ontap: () => assignNumber(8),
-                          ),
-                          NewCard(
-                            cardNumber: '9',
-                            ontap: () => assignNumber(9),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          NewCard(
-                            cardNumber: '4',
-                            ontap: () => assignNumber(4),
-                          ),
-                          NewCard(
-                            cardNumber: '5',
-                            ontap: () => assignNumber(5),
-                          ),
-                          NewCard(
-                            cardNumber: '6',
-                            ontap: () => assignNumber(6),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          NewCard(
-                            cardNumber: '1',
-                            ontap: () => assignNumber(1),
-                          ),
-                          NewCard(
-                            cardNumber: '2',
-                            ontap: () => assignNumber(2),
-                          ),
-                          NewCard(
-                            cardNumber: '3',
-                            ontap: () => assignNumber(3),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          NewCard(
-                            cardNumber: '. ',
-                          ),
-                          NewCard(
-                            cardNumber: '0',
-                            ontap: () => assignNumber(0),
-                          ),
-                          NewCard(
-                            cardNumber: '=',
-                            ontap: () => calculate(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      NewCard(
-                        cardNumber: '÷',
-                        ontap: () {
-                          setState(() {
-                            assignSign('÷');
-                            operate = 4;
-                          });
-                        },
-                      ),
-                      NewCard(
-                        cardNumber: 'x',
-                        ontap: () {
-                          setState(() {
-                            assignSign('x');
-                            operate = 3;
-                          });
-                        },
-                      ),
-                      NewCard(
-                        cardNumber: '-',
-                        ontap: () {
-                          setState(() {
-                            assignSign('-');
-                            operate = 2;
-                          });
-                        },
-                      ),
-                      NewCard(
-                          cardNumber: '+',
-                          ontap: () {
-                            setState(() {
-                              assignSign('+');
-                              operate = 1;
-                            });
-                          }),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      NewCard(
-                        cardNumber: 'Back',
-                        ontap: () => backspace(),
-                      ),
-                      NewCard(
-                        cardNumber: 'Clear',
-                        ontap: () => clear(),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ));
   }
 }
