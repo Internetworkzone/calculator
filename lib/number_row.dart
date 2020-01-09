@@ -15,6 +15,7 @@ class NumberRow extends StatelessWidget {
     this.symbol2,
     this.symbol3,
     this.symbol4,
+    this.keypadColor,
   });
   final ontap1;
   final ontap2;
@@ -28,6 +29,7 @@ class NumberRow extends StatelessWidget {
   final String symbol2;
   final String symbol3;
   final String symbol4;
+  final Color keypadColor;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class NumberRow extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: NewCard(
+            keypadColor: keypadColor,
             cardNumber: symbol1,
             ontap: ontap1,
             textColor: textColor1,
@@ -43,6 +46,7 @@ class NumberRow extends StatelessWidget {
         ),
         Expanded(
           child: NewCard(
+            keypadColor: keypadColor,
             cardNumber: symbol2,
             ontap: ontap2,
             textColor: textColor2,
@@ -50,6 +54,7 @@ class NumberRow extends StatelessWidget {
         ),
         Expanded(
           child: NewCard(
+            keypadColor: keypadColor,
             cardNumber: symbol3,
             ontap: ontap3,
             textColor: textColor3,
@@ -57,6 +62,7 @@ class NumberRow extends StatelessWidget {
         ),
         Expanded(
           child: NewCard(
+            keypadColor: keypadColor,
             cardNumber: symbol4,
             ontap: ontap4,
             textColor: textColor4,

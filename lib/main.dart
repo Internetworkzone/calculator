@@ -1,4 +1,4 @@
-import 'package:calc/homepage.dart';
+import 'package:calc/Pages/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,10 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Calculator',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
+      theme: ThemeData.dark(),
+      home: Calculator(),
     );
   }
 }
