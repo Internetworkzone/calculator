@@ -10,14 +10,14 @@ A new Calculator
 
 <img src="images/light1.png" height="520" width="270" align="left">
 <img src="images/light2.png" height="520" width="270" align="left">
+<br />
+
 </p>
 
-<br />
-______________________________________________________________________________________________________-
 
 <p align="center">
 
-## Dark Mode----------------------------------------------------------------------------------------
+## Dark Mode
 
 <img src="images/dark1.png" height="520" width="270" align="left">
 <img src="images/dark2.png" height="520" width="270" align="left">
