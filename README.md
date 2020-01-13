@@ -9,7 +9,7 @@ A new Calculator
 ## Light Mode
 
 <img src="images/light1.png" height="520" width="270" align="left">
-<img src="images/light2.png" height="520" width="270" align="left">
+<img src="images/light2.png" height="520" width="270" align="right">
 </p>
 
 <br />
