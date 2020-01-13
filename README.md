@@ -8,8 +8,8 @@ A new Calculator
 
 ## Light Mode
 
-<img src="images/light1.png" height="520" width="270" >
-<img src="images/light2.png" height="520" width="270" >
+<img src="images/light1.png" height="520" width="270" align="left">
+<img src="images/light2.png" height="520" width="270" align="left">
 </p>
 
 <br />
@@ -18,9 +18,9 @@ A new Calculator
 
 ## Dark Mode
 
-<img src="images/dark1.png" height="520" width="270" >
-<img src="images/dark2.png" height="520" width="270" >
-<img src="images/dark3.png" height="520" width="270" >
+<img src="images/dark1.png" height="520" width="270" align="right">
+<img src="images/dark2.png" height="520" width="270" align="right">
+<img src="images/dark3.png" height="520" width="270" align="right">
 </p>
 
 <br />
@@ -29,9 +29,9 @@ A new Calculator
 
 ## Additional Calculators
 
-<img src="images/dark4.png" height="520" width="270" >
-<img src="images/dark5.png" height="520" width="270" >
-<img src="images/dark6.png" height="520" width="270" >
+<img src="images/dark4.png" height="520" width="270" align="left">
+<img src="images/dark5.png" height="520" width="270" align="center">
+<img src="images/dark6.png" height="520" width="270" align="right">
 
 </p>
 
