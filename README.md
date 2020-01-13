@@ -22,6 +22,8 @@ A new Calculator
 <br />
 </p>
 
+# Light mode
+
 <p align="center">
 <img src="images/light1.png" height="520" width="270" align="left">
 <img src="images/light2.png" height="520" width="270" align="left">
