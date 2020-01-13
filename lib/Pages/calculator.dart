@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:calc/Pages/testpage.dart';
 import 'package:calc/modals/constants.dart';
 import 'package:calc/newcard.dart';
 import 'package:calc/number_row.dart';
@@ -245,18 +244,7 @@ class _CalculatorState extends State<Calculator> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      IconButton(
-                        icon: Text(
-                          'Test',
-                          style: TextStyle(color: signColor),
-                        ),
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => TestPage(),
-                          ),
-                        ),
-                      ),
+                     
                       Text(
                         inputValue,
                         style: TextStyle(

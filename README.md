@@ -1,17 +1,30 @@
 # calc
 
-A new Flutter project.
+A new Calculator
 
-## Getting Started
+## All in 1 
 
-This project is a starting point for a Flutter application.
+![Calculator Lightmode](images/light1.png)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![Calculator Lightmode](images/light2.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# calculator2" 
+
+![Calculator Darkmode](images/dark1.png)
+
+
+![Calculator Darktmode](images/dark2.png)
+
+
+![Calculator Darkmode](images/dark3.png)
+
+
+![Calculator Darktmode](images/dark4.png)
+
+
+![Calculator Darkmode](images/dark5.png)
+
+
+![Calculator Darktmode](images/dark6.png)
+
+
