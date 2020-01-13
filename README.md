@@ -4,7 +4,7 @@ A new Calculator
 
 ## All in 1 
 
-
+# Dark mode
 <p align="center">
 <br />
 <img src="images/dark1.png" height="520" width="270" align="left">
@@ -13,7 +13,7 @@ A new Calculator
 <br />
 </p>
 
-
+# Add ons
 <p align="center">
 <br />
 <img src="images/dark4.png" height="520" width="270" align="left">
